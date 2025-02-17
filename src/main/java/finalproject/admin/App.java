@@ -23,8 +23,8 @@ public class App extends FXApplication {
         public static final FXCollectionsRegister COLLECTIONS_REGISTRY = FXCollectionsRegister.INSTANCE;
         public static final FXNodeRegister NODE_REGISTER = FXNodeRegister.INSTANCE;
 
-        public static final DBService DB_THESIS = DBService.INSTANCE
-                        .initialize("jdbc:mysql://localhost/thesis_db?user=root&password=");
+        public static final DBService DB_SMS = DBService.INSTANCE
+                        .initialize("jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false");
 
         @Override
         public void initialize() throws Exception {

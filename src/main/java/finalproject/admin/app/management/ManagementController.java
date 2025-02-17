@@ -2,7 +2,6 @@ package finalproject.admin.app.management;
 
 import dev.sol.core.application.FXController;
 import dev.sol.core.application.loader.FXLoaderFactory;
-import finalproject.admin.app.RootLoader;
 import finalproject.admin.app.management.viewstudent.ViewStudentLoader;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
