@@ -22,9 +22,8 @@ public class App extends FXApplication {
         public static final FXControllerRegister CONTROLLER_REGISTRY = FXControllerRegister.INSTANCE;
         public static final FXCollectionsRegister COLLECTIONS_REGISTRY = FXCollectionsRegister.INSTANCE;
         public static final FXNodeRegister NODE_REGISTER = FXNodeRegister.INSTANCE;
-
-        public static final DBService DB_THESIS = DBService.INSTANCE
-                        .initialize("jdbc:mysql://localhost/thesis_db?user=root&password=");
+        public static final DBService DB_COOP = DBService.INSTANCE
+                        .initialize("jdbc:mysql://localhost/coop_db?user=root&password=");
 
         @Override
         public void initialize() throws Exception {

@@ -9,6 +9,39 @@ public class ViewStudentController extends FXController {
     @FXML
     private Label studentDetailsLabel;
 
+    @FXML
+    private Label studentidLabel;
+
+    @FXML
+    private Label firstnameLabel;
+
+    @FXML
+    private Label lastnameLabel;
+
+    @FXML
+    private Label middleLabel;
+
+    @FXML
+    private Label name_extensionLabel;
+
+    @FXML
+    private Label emailLabel;
+
+    @FXML
+    private Label statusLabel;
+
+    @FXML
+    private Label contactInfoLabel;
+
+    @FXML
+    private Label dateofbirthLabel;
+
+    @FXML
+    private Label fareLabel;
+
+    @FXML
+    private Label clusterLabel;
+
     @Override
     protected void load_bindings() {
         // Implement bindings if necessary
