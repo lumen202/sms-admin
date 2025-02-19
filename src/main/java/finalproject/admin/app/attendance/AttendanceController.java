@@ -69,20 +69,7 @@ public class AttendanceController extends FXController {
 
     @Override
     protected void load_bindings() {
-
-        // Set default selections
-        weekComboBox.setValue("Week " + getCurrentWeekOfMonth());
-
-        // Listen for changes in selection
-        monthComboBox.setOnAction(event -> updateTableColumns());
-        yearComboBox.setOnAction(event -> updateTableColumns());
-        weekComboBox.setOnAction(event -> updateTableColumns());
-
-        // Initialize table
-        attendanceData = FXCollections.observableArrayList();
-        attendanceTable.setItems(attendanceData);
-        attendanceTable.setEditable(true);
-        updateTableColumns();
+        // Initialize bindings if necessary
     }
 
     private void closeCurrentStage() {
@@ -103,8 +90,9 @@ public class AttendanceController extends FXController {
     public void initialize() {
         // Populate month and year ComboBoxes
         monthComboBox.getItems().addAll(
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December");
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        );
         for (int year = 2020; year <= 2030; year++) {
             yearComboBox.getItems().add(String.valueOf(year));
         }
@@ -114,6 +102,22 @@ public class AttendanceController extends FXController {
             weekComboBox.getItems().add("Week " + week);
         }
 
+        // Set default selections
+    
+        monthComboBox.setValue(LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH));
+        yearComboBox.setValue(String.valueOf(LocalDate.now().getYear()));
+        weekComboBox.setValue("Week " + getCurrentWeekOfMonth());
+
+        // Listen for changes in selection
+        monthComboBox.setOnAction(event -> updateTableColumns());
+        yearComboBox.setOnAction(event -> updateTableColumns());
+        weekComboBox.setOnAction(event -> updateTableColumns());
+
+        // Initialize table
+        attendanceData = FXCollections.observableArrayList();
+        attendanceTable.setItems(attendanceData);
+        attendanceTable.setEditable(true);
+        updateTableColumns();
     }
 
     private int getCurrentWeekOfMonth() {
@@ -123,7 +127,7 @@ public class AttendanceController extends FXController {
         LocalDate firstDayOfMonth = now.withDayOfMonth(1);
         int firstWeekOfMonth = firstDayOfMonth.get(weekFields.weekOfMonth());
 
-        return weekOfMonth - firstWeekOfMonth;
+        return weekOfMonth - firstWeekOfMonth ;
     }
 
     private void updateTableColumns() {
@@ -152,8 +156,7 @@ public class AttendanceController extends FXController {
                 String dayName = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
 
                 // Create a new column
-                TableColumn<Map<String, String>, String> dayColumn = new TableColumn<>(
-                        dayName + "\n" + date.getDayOfMonth());
+                TableColumn<Map<String, String>, String> dayColumn = new TableColumn<>(dayName + "\n" + date.getDayOfMonth());
                 dayColumn.setPrefWidth(50);
                 dayColumn.setCellValueFactory(new PropertyValueFactory<>("day" + (date.getDayOfMonth())));
                 dayColumn.setCellFactory(TextFieldTableCell.forTableColumn());
