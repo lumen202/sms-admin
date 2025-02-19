@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="547.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.admin.app.viewstudent.studentform.StudentFormController">
+   <children>
+      <BorderPane prefHeight="539.0" prefWidth="478.0">
+         <center>
+            <VBox prefHeight="388.0" prefWidth="480.0" BorderPane.alignment="CENTER">
+               <children>
+                  <GridPane vgap="30.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label text="First Name" GridPane.rowIndex="1" />
+                        <Label text="Student ID" />
+                        <Label text="Middle Name" GridPane.rowIndex="2" />
+                        <Label text="Last Name" GridPane.rowIndex="3" />
+                        <Label text="Name Extension" GridPane.rowIndex="4" />
+                        <Label text="Cluster" GridPane.rowIndex="5" />
+                        <Label text="Optional Clulster Details" GridPane.rowIndex="6" />
+                        <Label text="Contact Informantion" GridPane.rowIndex="7" />
+                        <TextField GridPane.columnIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <ComboBox prefHeight="36.0" prefWidth="299.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <ComboBox prefHeight="36.0" prefWidth="283.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label text="Address" GridPane.rowIndex="9" />
+                        <Label text="Email" GridPane.rowIndex="8" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label text="Guardian" GridPane.rowIndex="10" />
+                        <TextField GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </GridPane>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="20.0">
+                     <children>
+                        <Region prefHeight="36.0" prefWidth="283.0" />
+                        <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="81.0" text="Save" />
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButton" prefHeight="36.0" prefWidth="86.0" text="Cancel" />
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="17.0" />
+               </padding>
+            </VBox>
+         </center>
+         <top>
+            <HBox prefHeight="103.0" prefWidth="507.0" BorderPane.alignment="CENTER">
+               <children>
+                  <ImageView fitHeight="124.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../assets/img/logo.png" />
+                     </image>
+                  </ImageView>
+                  <VBox prefHeight="124.0" prefWidth="387.0">
+                     <children>
+                        <Region prefHeight="200.0" prefWidth="200.0" />
+                        <ToolBar prefHeight="44.0" prefWidth="504.0">
+                           <items>
+                              <Button mnemonicParsing="false" prefHeight="36.0" prefWidth="200.0" text="Change Profile Picture" />
+                              <MenuButton mnemonicParsing="false" prefHeight="36.0" prefWidth="162.0" text="Management">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Address" />
+                                  <MenuItem mnemonicParsing="false" text="Guardian" />
+                                    <MenuItem mnemonicParsing="false" text="Cluster" />
+                                </items>
+                              </MenuButton>
+                           </items>
+                        </ToolBar>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </top>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+         <StackPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </StackPane.margin>
+      </BorderPane>
+   </children>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</StackPane>

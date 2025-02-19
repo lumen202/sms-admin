@@ -2,42 +2,89 @@ package finalproject.admin.app;
 
 import dev.sol.core.application.FXController;
 import dev.sol.core.application.loader.FXLoaderFactory;
-import finalproject.admin.app.management.ManagementLoader;
+import finalproject.admin.app.attendance.AttendanceLoader;
+import finalproject.admin.app.payroll.PayrollLoader;
+import finalproject.admin.app.viewstudent.StudentProfileLoader;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 
 public class RootController extends FXController {
 
     @FXML
-    private Button studentManagementButton;
+    private Button studentProfileButton;
+    @FXML
+    private MenuItem attendanceButton;
+    @FXML
+    private MenuItem payrollMenuItem;
+    @FXML
+    MenuItem attendanceMenuItem;
+
+    @FXML
 
     private Scene scene;
 
     @FXML
-    private void handleStudentManagementButton() {
-        System.out.println("Student Management Button Clicked");
-        initialize_application();
+    private void handleStudentProfileButton() {
+        System.out.println("Student profile Button Clicked");
+        initialize_studentProfile();
     }
 
-    private void initialize_application() {
-        ManagementLoader loader = (ManagementLoader) FXLoaderFactory
-                .createInstance(ManagementLoader.class,
-                        getClass().getResource("/finalproject/admin/app/management/MANAGEMENT.fxml"))
+    @FXML
+    private void handlesPayrollButton() {
+        System.out.println("Payroll Button is Clicked");
+        initialize_payroll();
+
+    }
+
+    @FXML
+    private void handleAttendanceButton() {
+        System.out.println("attendance button is clicked");
+        initialize_attendance();
+
+    }
+
+    private void initialize_attendance() {
+        AttendanceLoader loader = (AttendanceLoader) FXLoaderFactory
+                .createInstance(AttendanceLoader.class,
+                        getClass().getResource("/finalproject/admin/app/attendance/ATTENDANCE.fxml"))
                 .addParameter("scene", scene)
                 .addParameter("OWNER", getParameter("OWNER"))
                 .initialize();
-        if (loader != null) {
-            loader.load();
-        } else {
-            System.err.println("Loader is null");
-        }
+        loader.load();
+
+    }
+
+    private void initialize_payroll() {
+        PayrollLoader loader = (PayrollLoader) FXLoaderFactory
+                .createInstance(PayrollLoader.class,
+                        getClass().getResource("/finalproject/admin/app/payroll/PAYROLL.fxml"))
+                .addParameter("scene", scene)
+                .addParameter("OWNER", getParameter("OWNER"))
+                .initialize();
+        loader.load();
+    }
+
+    private void initialize_studentProfile() {
+        StudentProfileLoader loader = (StudentProfileLoader) FXLoaderFactory
+                .createInstance(StudentProfileLoader.class,
+                        getClass().getResource("/finalproject/admin/app/viewstudent/STUDENT_PROFILE.fxml"))
+                .addParameter("scene", scene)
+                .addParameter("OWNER", getParameter("OWNER"))
+                .initialize();
+        loader.load();
+
     }
 
     @Override
     protected void load_bindings() {
-        scene = (Scene) getParameter("SCENE");
-        // Implement bindings if necessary
+        scene = (Scene) getParameter("scene");
+
+        attendanceMenuItem.setOnAction(event -> handleStudentProfileButton());
+        payrollMenuItem.setOnAction(event -> handlesPayrollButton());
+        attendanceMenuItem.setOnAction(event -> handleAttendanceButton());
     }
 
     @Override
@@ -47,7 +94,8 @@ public class RootController extends FXController {
 
     @Override
     protected void load_listeners() {
-        studentManagementButton.setOnMouseClicked(event -> handleStudentManagementButton());
+        studentProfileButton.setOnMouseClicked(event -> handleStudentProfileButton());
+
     }
 
 }

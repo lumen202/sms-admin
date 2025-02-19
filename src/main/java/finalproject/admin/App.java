@@ -32,7 +32,6 @@ public class App extends FXApplication {
                 setSkin(FXSkin.PRIMER_LIGHT);
                 applicationStage.setResizable(false);
                 applicationStage.getOnCloseRequest();
-
                 initialize_dataset();
                 initialize_application();
 
