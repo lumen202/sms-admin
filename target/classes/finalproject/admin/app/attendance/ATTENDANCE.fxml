@@ -12,17 +12,15 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.admin.app.attendance.AttendanceController">
+<BorderPane prefHeight="515.0" prefWidth="1030.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.admin.app.attendance.AttendanceController">
     
     <!-- Top Section: Month & Year Selection -->
     <top>
         <ToolBar>
-         <Label text="Week: " />
-         <ComboBox fx:id="weekComboBox" prefWidth="150.0" />
-            <Label text="Month:" />
-            <ComboBox fx:id="monthComboBox" prefWidth="120" />
-            <Label text="Year:" />
-            <ComboBox fx:id="yearComboBox" prefWidth="100" />
+            <Label text="Month &amp; Year:" />
+            <ComboBox fx:id="monthYearComboBox" prefWidth="200" />
+            <Label text="Week:" />
+            <ComboBox fx:id="weekComboBox" prefWidth="150.0" />
             <Region fx:id="spacer" HBox.hgrow="ALWAYS" />
             <Button fx:id="manageAttendanceBtn" text="Manage Attendance" />
             <Button fx:id="exportBtn" text="Export" />
@@ -31,7 +29,7 @@
     
     <!-- Center Section: Attendance Table -->
     <center>
-        <VBox spacing="10">
+        <VBox spacing="10" VBox.vgrow="ALWAYS">
             <padding>
                 <Insets bottom="10" left="10" right="10" top="10" />
             </padding>
@@ -58,7 +56,7 @@
                         </columns>
                     </TableColumn>
                     
-                    <TableColumn fx:id="totalDaysColumn" prefWidth="175.0" text="Total No. of Days" />
+                    <TableColumn fx:id="totalDaysColumn" prefWidth="133.0" text="Total No. of Days" />
                 </columns>
             <columnResizePolicy>
                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

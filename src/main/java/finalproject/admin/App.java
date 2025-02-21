@@ -22,19 +22,17 @@ public class App extends FXApplication {
         public static final FXControllerRegister CONTROLLER_REGISTRY = FXControllerRegister.INSTANCE;
         public static final FXCollectionsRegister COLLECTIONS_REGISTRY = FXCollectionsRegister.INSTANCE;
         public static final FXNodeRegister NODE_REGISTER = FXNodeRegister.INSTANCE;
-
         public static final DBService DB_SMS = DBService.INSTANCE
-                        .initialize("jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false");
+                        .initialize("jdbc:mysql://192.168.254.108:3306/student_management_system_db?user=root&password=admin&allowPublicKeyRetrieval=true&useSSL=false&zeroDateTimeBehavior=CONVERT_TO_NULL");
 
         @Override
         public void initialize() throws Exception {
                 setTitle("Student Management System - Admin");
                 setSkin(FXSkin.PRIMER_LIGHT);
-                applicationStage.setResizable(false);
+
                 applicationStage.getOnCloseRequest();
                 initialize_dataset();
                 initialize_application();
-
         }
 
         public void initialize_dataset() {
@@ -75,5 +73,4 @@ public class App extends FXApplication {
                                 .initialize();
                 rootLoader.load();
         }
-
 }

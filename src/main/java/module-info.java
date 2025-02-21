@@ -23,6 +23,7 @@ module finalproject.admin {
     opens finalproject.admin.app.viewstudent to core.fx, javafx.fxml;
     opens finalproject.admin.app.payroll to core.fx, javafx.fxml;
     opens finalproject.admin.app.viewstudent.studentform to core.fx, javafx.fxml;
+    opens finalproject.admin.app.home to core.fx, javafx.fxml;
 
     exports finalproject.admin;
 }

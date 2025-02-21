@@ -7,90 +7,65 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToolBar?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane prefHeight="670.0" prefWidth="1053.0" style="-fx-background-color: FLORALWHITE;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.admin.app.RootController">
+<AnchorPane prefHeight="670.0" prefWidth="1053.0" style="-fx-background-color: FLORALWHITE;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.admin.app.RootController">
    <children>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="1052.0">
-         <top>
-            <StackPane style="-fx-background-color: CADETBLUE;" styleClass="banner" BorderPane.alignment="CENTER">
+      <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <StackPane style="-fx-background-color: CADETBLUE;" styleClass="banner">
                <children>
-                  <HBox prefHeight="33.0" prefWidth="1052.0">
+                  <VBox>
                      <children>
-                        <HBox prefHeight="105.0" prefWidth="1042.0">
+                        <HBox prefHeight="48.0" prefWidth="1065.0">
                            <children>
-                              <Label prefHeight="48.0" prefWidth="1042.0" styleClass="color-palette" text="Student Management System" textFill="#a11c1c">
+                              <Label prefHeight="48.0" prefWidth="740.0" styleClass="abbr" text="Student Management System" textFill="#a11c1c">
                                  <font>
                                     <Font name="System Bold" size="20.0" />
                                  </font>
                               </Label>
+                              <Spacer />
+                              <MenuButton mnemonicParsing="false" prefHeight="53.0" prefWidth="56.0" text="+" HBox.hgrow="ALWAYS">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="New School Year" />
+                                  <MenuItem fx:id="generateKeyMenuItem" mnemonicParsing="false" text="Generate Key Code" />
+                                </items>
+                              </MenuButton>
+                              <AnchorPane>
+                                 <children>
+                                    <ComboBox fx:id="yearComboBox" prefHeight="48.0" prefWidth="228.0" />
+                                 </children>
+                              </AnchorPane>
+                           </children>
+                        </HBox>
+                        <HBox HBox.hgrow="ALWAYS">
+                           <children>
+                              <ToolBar prefHeight="44.0" prefWidth="1074.0" HBox.hgrow="ALWAYS">
+                                <items>
+                                    <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackButton" text="Student" />
+                                    <Button fx:id="attendanceButton" mnemonicParsing="false" text="Attendance" />
+                                    <Button fx:id="payrollButton" mnemonicParsing="false" text="Payroll" />
+                                    <Spacer />
+                                </items>
+                              </ToolBar>
                            </children>
                         </HBox>
                      </children>
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </HBox>
+                  </VBox>
                </children>
             </StackPane>
-         </top>
-         <center>
-            <StackPane prefHeight="499.0" prefWidth="1052.0" BorderPane.alignment="CENTER">
-               <children>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: CADETBLUE;">
-                     <top>
-                        <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                          <items>
-                              <ComboBox prefHeight="36.0" prefWidth="228.0" />
-                              <MenuButton mnemonicParsing="false" text="+">
-                                <items>
-                                  <MenuItem mnemonicParsing="false" text="New School Year" />
-                                  <MenuItem mnemonicParsing="false" text="Generate Key Code" />
-                                </items>
-                              </MenuButton>
-                              <Spacer />
-                              <Button fx:id="studentProfileButton" mnemonicParsing="false" onAction="#handleStudentProfileButton" text="Student Profile" />
-                              <Button mnemonicParsing="false" text="Enroll/Drop" />
-                              <MenuButton mnemonicParsing="false" text="Reports">
-                                <items>
-                                  <MenuItem fx:id="payrollMenuItem" mnemonicParsing="false" text="Payroll" />
-                                  <MenuItem fx:id="attendanceMenuItem" mnemonicParsing="false" onAction="#handleAttendanceButton" text="Attendance" />
-                                </items>
-                              </MenuButton>
-                          </items>
-                        </ToolBar>
-                     </top>
-                     <center>
-                        <TableView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                          <columns>
-                            <TableColumn prefWidth="89.0" text="Student ID" />
-                            <TableColumn prefWidth="131.0" text="First Name" />
-                              <TableColumn prefWidth="117.0" text="Middle Name" />
-                              <TableColumn prefWidth="129.0" text="Last Name" />
-                              <TableColumn prefWidth="82.0" text="Name Ext" />
-                              <TableColumn prefWidth="75.0" text="Cluster" />
-                              <TableColumn prefWidth="171.0" text="Optional Cluster Details" />
-                              <TableColumn prefWidth="127.0" text="Contact Number" />
-                              <TableColumn prefWidth="129.0" text="Email" />
-                          </columns>
-                        </TableView>
-                     </center>
-                  </BorderPane>
-               </children>
+            <StackPane fx:id="contentPane" prefHeight="499.0" prefWidth="1052.0" VBox.vgrow="ALWAYS">
+               <!-- This is where the scenes will be displayed -->
             </StackPane>
-         </center>
-      </BorderPane>
+         </children>
+      </VBox>
    </children>
    <padding>
       <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
    </padding>
-</StackPane>
+</AnchorPane>

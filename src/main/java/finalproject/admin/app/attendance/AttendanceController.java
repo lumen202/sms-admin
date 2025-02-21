@@ -2,14 +2,15 @@ package finalproject.admin.app.attendance;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
-import java.time.temporal.WeekFields;
 import java.util.Locale;
 import java.util.Map;
 
 import dev.sol.core.application.FXController;
 import dev.sol.core.application.loader.FXLoaderFactory;
 import finalproject.admin.app.viewstudent.StudentProfileLoader;
+import finalproject.admin.util.YearData;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -28,9 +29,7 @@ public class AttendanceController extends FXController {
     @FXML
     private Button backButton;
     @FXML
-    private ComboBox<String> monthComboBox;
-    @FXML
-    private ComboBox<String> yearComboBox;
+    private ComboBox<String> monthYearComboBox;
     @FXML
     private ComboBox<String> weekComboBox;
     @FXML
@@ -79,7 +78,7 @@ public class AttendanceController extends FXController {
 
     @Override
     protected void load_fields() {
-        // Initialize fields if necessary
+        System.out.println("asdasdasdasd");
     }
 
     @Override
@@ -87,30 +86,32 @@ public class AttendanceController extends FXController {
         // No need to manually set the event handler
     }
 
+    @FXML
     public void initialize() {
-        // Populate month and year ComboBoxes
-        monthComboBox.getItems().addAll(
-            "January", "February", "March", "April", "May", "June",
-            "July", "August", "September", "October", "November", "December"
-        );
-        for (int year = 2020; year <= 2030; year++) {
-            yearComboBox.getItems().add(String.valueOf(year));
+        load(); // Ensure this method is called to load fields, bindings, and listeners
+        // Populate monthYear ComboBox
+        ObservableList<String> monthYearList = FXCollections.observableArrayList();
+        for (String year : YearData.getYears()) {
+            for (String month : new String[] { "January", "February", "March", "April", "May", "June", "July", "August",
+                    "September", "October", "November", "December" }) {
+                monthYearList.add(month + " " + year);
+            }
         }
+        monthYearComboBox.setItems(monthYearList);
 
-        // Populate week ComboBox (1 to 4)
-        for (int week = 1; week <= 4; week++) {
-            weekComboBox.getItems().add("Week " + week);
-        }
+        // Set default selection
+        LocalDate now = LocalDate.now();
+        String defaultMonthYear = now.getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH) + " " + now.getYear();
+        monthYearComboBox.setValue(defaultMonthYear);
 
-        // Set default selections
-    
-        monthComboBox.setValue(LocalDate.now().getMonth().getDisplayName(TextStyle.FULL, Locale.ENGLISH));
-        yearComboBox.setValue(String.valueOf(LocalDate.now().getYear()));
-        weekComboBox.setValue("Week " + getCurrentWeekOfMonth());
+        // Populate week ComboBox
+        populateWeekComboBox();
 
         // Listen for changes in selection
-        monthComboBox.setOnAction(event -> updateTableColumns());
-        yearComboBox.setOnAction(event -> updateTableColumns());
+        monthYearComboBox.setOnAction(event -> {
+            populateWeekComboBox();
+            updateTableColumns();
+        });
         weekComboBox.setOnAction(event -> updateTableColumns());
 
         // Initialize table
@@ -120,54 +121,79 @@ public class AttendanceController extends FXController {
         updateTableColumns();
     }
 
-    private int getCurrentWeekOfMonth() {
-        LocalDate now = LocalDate.now();
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        int weekOfMonth = now.get(weekFields.weekOfMonth());
-        LocalDate firstDayOfMonth = now.withDayOfMonth(1);
-        int firstWeekOfMonth = firstDayOfMonth.get(weekFields.weekOfMonth());
+    private void populateWeekComboBox() {
+        weekComboBox.getItems().clear();
+        String selectedMonthYear = monthYearComboBox.getValue();
 
-        return weekOfMonth - firstWeekOfMonth ;
+        if (selectedMonthYear == null) {
+            return;
+        }
+
+        String[] parts = selectedMonthYear.split(" ");
+        String selectedYear = parts[1];
+
+        int monthNumber = monthYearComboBox.getItems().indexOf(selectedMonthYear) % 12 + 1;
+        int yearNumber = Integer.parseInt(selectedYear);
+
+        LocalDate firstDayOfMonth = LocalDate.of(yearNumber, monthNumber, 1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd");
+
+        LocalDate currentDay = firstDayOfMonth;
+        while (currentDay.getMonthValue() == monthNumber) {
+            LocalDate startOfWeek = currentDay;
+            LocalDate endOfWeek = startOfWeek;
+            for (int i = 0; i < 5; i++) { // Only include weekdays
+                if (endOfWeek.getDayOfWeek() == DayOfWeek.SATURDAY || endOfWeek.getDayOfWeek() == DayOfWeek.SUNDAY) {
+                    endOfWeek = endOfWeek.plusDays(1);
+                } else {
+                    endOfWeek = endOfWeek.plusDays(1);
+                }
+            }
+            endOfWeek = endOfWeek.minusDays(1); // Exclude Saturday and Sunday
+            weekComboBox.getItems().add(startOfWeek.format(formatter) + " - " + endOfWeek.format(formatter));
+            currentDay = endOfWeek.plusDays(2); // Move to the next Monday
+        }
+
+        if (!weekComboBox.getItems().isEmpty()) {
+            weekComboBox.setValue(weekComboBox.getItems().get(0));
+        }
     }
 
     private void updateTableColumns() {
         // Get selected month, year, and week
-        String selectedMonth = monthComboBox.getValue();
-        int selectedYear = Integer.parseInt(yearComboBox.getValue());
-        int selectedWeek = Integer.parseInt(weekComboBox.getValue().replace("Week ", ""));
+        String selectedMonthYear = monthYearComboBox.getValue();
+        String selectedWeek = weekComboBox.getValue();
+
+        if (selectedMonthYear == null || selectedWeek == null) {
+            return;
+        }
+
+        String[] parts = selectedMonthYear.split(" ");
+        String selectedMonth = parts[0];
+        String selectedYear = parts[1];
 
         // Convert month name to number
-        int monthNumber = monthComboBox.getItems().indexOf(selectedMonth) + 1;
+        int monthNumber = monthYearComboBox.getItems().indexOf(selectedMonthYear) % 12 + 1;
+        int yearNumber = Integer.parseInt(selectedYear);
 
         // Get the first day of the selected week
-        LocalDate firstDayOfWeek = LocalDate.of(selectedYear, monthNumber, 1)
-                .with(WeekFields.of(Locale.getDefault()).getFirstDayOfWeek())
-                .plusWeeks(selectedWeek - 1);
+        String[] weekRange = selectedWeek.split(" - ");
+        LocalDate startOfWeek = LocalDate.of(yearNumber, monthNumber, Integer.parseInt(weekRange[0]));
 
         // Clear previous columns
         timeRollColumn.getColumns().clear();
 
         // Generate new columns dynamically for Monday to Friday
-        for (int day = 0; day < 7; day++) {
-            LocalDate date = firstDayOfWeek.plusDays(day);
-            DayOfWeek dayOfWeek = date.getDayOfWeek();
-
-            if (dayOfWeek != DayOfWeek.SATURDAY && dayOfWeek != DayOfWeek.SUNDAY) {
-                String dayName = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.ENGLISH);
-
-                // Create a new column
-                TableColumn<Map<String, String>, String> dayColumn = new TableColumn<>(dayName + "\n" + date.getDayOfMonth());
-                dayColumn.setPrefWidth(50);
-                dayColumn.setCellValueFactory(new PropertyValueFactory<>("day" + (date.getDayOfMonth())));
-                dayColumn.setCellFactory(TextFieldTableCell.forTableColumn());
-                dayColumn.setOnEditCommit(event -> {
-                    Map<String, String> row = event.getRowValue();
-                    row.put("day" + (date.getDayOfMonth()), event.getNewValue());
-                });
-
-                // Add column to the time roll section
-                timeRollColumn.getColumns().add(dayColumn);
+        for (DayOfWeek day : DayOfWeek.values()) {
+            if (day == DayOfWeek.SATURDAY || day == DayOfWeek.SUNDAY) {
+                continue;
             }
+            LocalDate date = startOfWeek.with(day);
+            TableColumn<Map<String, String>, String> dayColumn = new TableColumn<>(
+                    date.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + date.getDayOfMonth());
+            dayColumn.setCellValueFactory(new PropertyValueFactory<>(date.toString()));
+            dayColumn.setCellFactory(TextFieldTableCell.forTableColumn());
+            timeRollColumn.getColumns().add(dayColumn);
         }
     }
 }

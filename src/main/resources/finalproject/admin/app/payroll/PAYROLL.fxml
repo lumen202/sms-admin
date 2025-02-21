@@ -17,11 +17,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="667.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="667.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.admin.app.payroll.PayrollController">
    <center>
-      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <StackPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="CENTER" VBox.vgrow="ALWAYS">
          <children>
-            <TableView prefHeight="200.0" prefWidth="200.0">
+            <TableView prefHeight="388.0" prefWidth="647.0" VBox.vgrow="ALWAYS">
               <columns>
                 <TableColumn prefWidth="255.0" text="Student List">
                      <columns>
@@ -47,29 +47,34 @@
       </StackPane>
    </center>
    <bottom>
-      <HBox prefHeight="65.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+      <VBox BorderPane.alignment="CENTER">
          <children>
-            <Region prefHeight="65.0" prefWidth="391.0" />
-            <Label text="SUB-TOTAL FOR THIS PAGE | ₱   ">
-               <font>
-                  <Font name="System Bold Italic" size="12.0" />
-               </font>
-            </Label>
-            <Label text="Label">
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Label>
+            <Region prefHeight="22.0" prefWidth="647.0" />
+            <HBox prefHeight="47.0" prefWidth="647.0">
+               <children>
+                  <Spacer prefHeight="47.0" prefWidth="283.0" />
+                  <Label text="SUB-TOTAL FOR THIS PAGE | ₱   ">
+                     <font>
+                        <Font name="System Bold Italic" size="12.0" />
+                     </font>
+                  </Label>
+                  <Label text="Label">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </Label>
+                  <Region prefHeight="47.0" prefWidth="26.0" />
+               </children>
+            </HBox>
          </children>
-      </HBox>
+      </VBox>
    </bottom>
    <top>
       <VBox prefHeight="60.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
             <ToolBar prefHeight="40.0" prefWidth="200.0">
               <items>
-                  <ComboBox prefHeight="36.0" prefWidth="165.0" promptText="Month" />
-                  <ComboBox prefWidth="150.0" promptText="Year" />
+                  <ComboBox fx:id="yearMonthComboBox" prefHeight="36.0" prefWidth="165.0" promptText="Month and Year" />
                   <Spacer />
                 <Button mnemonicParsing="false" text="Export" />
                   <MenuButton mnemonicParsing="false" text="Management">
