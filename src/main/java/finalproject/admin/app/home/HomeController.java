@@ -2,19 +2,15 @@ package finalproject.admin.app.home;
 
 import dev.finalproject.App;
 import dev.finalproject.models.Cluster;
-import dev.finalproject.models.Student;
 import dev.sol.core.application.FXController;
-import dev.sol.core.application.loader.FXLoaderFactory;
 import finalproject.admin.app.viewstudent.studentform.StudentFormController;
-import finalproject.admin.app.viewstudent.studentform.StudentFormLoader;
-import finalproject.admin.util.YearData;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -40,22 +36,12 @@ public class HomeController extends FXController {
     private ContextMenu studentMenu;
 
     private void handleEditMenu() {
-        System.out.println("Edit student is clicked");
         initialize_editStudent();
     }
 
     private void initialize_editStudent() {
-        StudentFormLoader loader = (StudentFormLoader) FXLoaderFactory
-                .createInstance(StudentFormLoader.class,
-                        getClass().getResource(
-                                "/finalproject/admin/app/viewstudent/studentform/STUDENT_FORM.fxml"))
-                .initialize();
-        loader.load();
-    }
-
-    @FXML
-    private void handlTestButton() {
-        System.out.println("test button is clicked");
+        loadSceneWithYear("/finalproject/admin/app/viewstudent/studentform/STUDENT_FORM.fxml",
+                StudentFormController.class);
     }
 
     private void loadSceneWithYear(String fxmlPath, Class<? extends FXController> controllerClass) {
@@ -64,14 +50,14 @@ public class HomeController extends FXController {
             Parent rootNode = loader.load();
             applyFadeTransition(rootNode);
             contentPane.getChildren().setAll(rootNode);
-            if (rootNode instanceof Region) {
-                Region region = (Region) rootNode;
-                region.prefWidthProperty().bind(contentPane.widthProperty());
-                region.prefHeightProperty().bind(contentPane.heightProperty());
-            }
+
+            Region region = (Region) rootNode;
+            region.prefWidthProperty().bind(contentPane.widthProperty());
+            region.prefHeightProperty().bind(contentPane.heightProperty());
+
             FXController controller = loader.getController();
             if (controllerClass.isInstance(controller)) {
-                controller.load(); // Ensure load is called after setting the year
+                controller.load();
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,18 +1,13 @@
 package finalproject.admin.app;
 
-import dev.finalproject.App;
-import dev.finalproject.models.Student;
 import dev.sol.core.application.FXController;
 import finalproject.admin.app.attendance.AttendanceController;
 import finalproject.admin.app.home.HomeController;
-import finalproject.admin.app.home.HomeLoader;
 import finalproject.admin.app.payroll.PayrollController;
 import finalproject.admin.util.YearData;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Region;
@@ -21,12 +16,9 @@ import javafx.scene.control.ComboBox;
 import javafx.animation.FadeTransition;
 import javafx.util.Duration;
 
-import java.security.Key;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.util.Base64;
-import dev.sol.core.application.loader.FXLoaderFactory;
-import dev.sol.core.application.loader.FXLoader;
 
 public class RootController extends FXController {
 
@@ -43,9 +35,6 @@ public class RootController extends FXController {
     @FXML
     private ComboBox<String> yearComboBox;
 
-    private ObservableList<Student> studentMasterList;
-    @FXML
-    private Scene scene;
 
     @FXML
     private void handlesPayrollButton() {
@@ -119,8 +108,6 @@ public class RootController extends FXController {
 
     @Override
     protected void load_bindings() {
-        studentMasterList = App.COLLECTIONS_REGISTRY.getList("STUDENT");
-        scene = (Scene) getParameter("scene");
         loadSceneWithYear("/finalproject/admin/app/home/HOME.fxml", HomeController.class);
 
         payrollButton.setOnAction(event -> handlesPayrollButton());

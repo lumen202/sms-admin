@@ -131,6 +131,7 @@ public class AttendanceController extends FXController {
 
         String[] parts = selectedMonthYear.split(" ");
         String selectedYear = parts[1];
+        String selectedMonth = parts[0];
 
         int monthNumber = monthYearComboBox.getItems().indexOf(selectedMonthYear) % 12 + 1;
         int yearNumber = Integer.parseInt(selectedYear);
@@ -150,7 +151,7 @@ public class AttendanceController extends FXController {
                 }
             }
             endOfWeek = endOfWeek.minusDays(1); // Exclude Saturday and Sunday
-            weekComboBox.getItems().add(startOfWeek.format(formatter) + " - " + endOfWeek.format(formatter));
+            weekComboBox.getItems().add(selectedMonth + " " + startOfWeek.format(formatter) + " - " + selectedMonth + " " + endOfWeek.format(formatter));
             currentDay = endOfWeek.plusDays(2); // Move to the next Monday
         }
 
@@ -178,7 +179,7 @@ public class AttendanceController extends FXController {
 
         // Get the first day of the selected week
         String[] weekRange = selectedWeek.split(" - ");
-        LocalDate startOfWeek = LocalDate.of(yearNumber, monthNumber, Integer.parseInt(weekRange[0]));
+        LocalDate startOfWeek = LocalDate.of(yearNumber, monthNumber, Integer.parseInt(weekRange[0].split(" ")[1]));
 
         // Clear previous columns
         timeRollColumn.getColumns().clear();

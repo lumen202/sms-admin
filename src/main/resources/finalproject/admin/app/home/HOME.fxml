@@ -2,24 +2,15 @@
 
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.admin.app.home.HomeController">
+<StackPane fx:id="contentPane" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalproject.admin.app.home.HomeController">
    <children>
-      <StackPane fx:id="contentPane">
-         <children>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <center>
-                  <TableView fx:id="clusterTableView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                    <columns>
-                      <TableColumn fx:id="clusterID" prefWidth="75.0" text="ClusterID" />
-                      <TableColumn fx:id="clusterName" prefWidth="75.0" text="ClusterName" />
-                    </columns>
-                  </TableView>
-               </center>
-            </BorderPane>
-         </children>
-      </StackPane>
+      <TableView fx:id="clusterTableView" prefHeight="200.0" prefWidth="200.0">
+        <columns>
+          <TableColumn fx:id="clusterID" prefWidth="75.0" text="ClusterID" />
+          <TableColumn fx:id="clusterName" prefWidth="75.0" text="ClusterName" />
+        </columns>
+      </TableView>
    </children>
 </StackPane>
